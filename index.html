@@ -6,7 +6,6 @@
     <title>For Bhavik 💖</title>
     <style>
         body {
-            /* Purple, Pink, and White gradient mixture */
             background: linear-gradient(135deg, #ffffff 0%, #fbc2eb 50%, #a18cd1 100%);
             display: flex;
             flex-direction: column;
@@ -20,21 +19,19 @@
         }
 
         h1 {
-            color: #6a1b9a; /* Deep Purple */
+            color: #6a1b9a;
             font-size: 3.5rem;
             text-align: center;
             margin-bottom: 30px;
             z-index: 10;
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+            padding: 0 20px;
         }
 
         .container {
             position: relative;
             width: 100%;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            height: 100px;
             z-index: 10;
         }
 
@@ -46,21 +43,27 @@
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: absolute; /* Changed to absolute for better control */
+            position: absolute;
+            transition: all 0.15s ease-out; /* Makes the jump look smoother */
         }
 
         #yesBtn {
-            background-color: #ff69b4; /* Pink */
+            background-color: #ff69b4;
             color: white;
-            left: calc(50% - 110px); /* Centered positioning */
+            /* Start position centered */
+            left: 40%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
 
         #noBtn {
             background-color: #ffffff;
-            color: #6a1b9a; /* Purple text */
+            color: #6a1b9a;
             border: 2px solid #6a1b9a;
-            left: calc(50% + 20px); /* Centered positioning */
-            transition: all 0.2s ease; /* Smooth jump */
+            /* Start position centered */
+            left: 60%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .celebration {
@@ -106,7 +109,7 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = Math.random() > 0.5 ? '💜' : '💖'; // Purple and Pink hearts
+            heart.innerHTML = Math.random() > 0.5 ? '💜' : '💖';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 2 + 's';
             document.body.appendChild(heart);
@@ -118,14 +121,19 @@
         function moveButton() {
             const btn = document.getElementById('noBtn');
             
-            // This math ensures the button stays inside the visible screen
-            const padding = 50; 
-            const maxX = window.innerWidth - btn.offsetWidth - padding;
-            const maxY = window.innerHeight - btn.offsetHeight - padding;
+            // We use 100px padding to keep it away from the very edges
+            const padding = 100; 
             
-            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+            // Calculate available width and height
+            const availableWidth = window.innerWidth - btn.offsetWidth - padding;
+            const availableHeight = window.innerHeight - btn.offsetHeight - padding;
             
+            // Generate new coordinates
+            const randomX = Math.floor(Math.random() * availableWidth) + (padding / 2);
+            const randomY = Math.floor(Math.random() * availableHeight) + (padding / 2);
+            
+            // Apply new position and remove the 'transform' so it doesn't offset incorrectly
+            btn.style.transform = 'none';
             btn.style.left = randomX + 'px';
             btn.style.top = randomY + 'px';
         }
