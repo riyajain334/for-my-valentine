@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question 💖</title>
+    <title>For Bhavik 💖</title>
     <style>
         body {
-            background-color: #fff0f5; 
+            /* Purple, Pink, and White gradient mixture */
+            background: linear-gradient(135deg, #ffffff 0%, #fbc2eb 50%, #a18cd1 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -15,22 +16,22 @@
             margin: 0;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
-            transition: background-color 1s ease;
+            transition: background 1s ease;
         }
 
         h1 {
-            color: #ff69b4;
-            font-size: 3rem;
+            color: #6a1b9a; /* Deep Purple */
+            font-size: 3.5rem;
             text-align: center;
             margin-bottom: 30px;
             z-index: 10;
-            text-shadow: 2px 2px white;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
         }
 
         .container {
             position: relative;
             width: 100%;
-            height: 100px;
+            height: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,27 +39,28 @@
         }
 
         button {
-            padding: 15px 35px;
-            font-size: 1.2rem;
+            padding: 15px 40px;
+            font-size: 1.3rem;
             border: none;
-            border-radius: 25px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: absolute; /* Changed to absolute for better control */
         }
 
         #yesBtn {
-            background-color: #ff69b4;
+            background-color: #ff69b4; /* Pink */
             color: white;
-            margin-right: 20px;
+            left: calc(50% - 110px); /* Centered positioning */
         }
 
         #noBtn {
             background-color: #ffffff;
-            color: #ff69b4;
-            border: 2px solid #ff69b4;
-            position: absolute;
-            transition: 0.1s;
+            color: #6a1b9a; /* Purple text */
+            border: 2px solid #6a1b9a;
+            left: calc(50% + 20px); /* Centered positioning */
+            transition: all 0.2s ease; /* Smooth jump */
         }
 
         .celebration {
@@ -67,20 +69,17 @@
             z-index: 10;
         }
 
-        /* Heart Animation Style */
         .heart {
             position: fixed;
             top: -10%;
-            font-size: 20px;
+            font-size: 24px;
             user-select: none;
             z-index: 1;
             animation: fall linear forwards;
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
+            to { transform: translateY(110vh) rotate(360deg); }
         }
     </style>
 </head>
@@ -91,7 +90,7 @@
     </audio>
 
     <div id="main-content">
-        <h1>Will you be my Valentine? 💖</h1>
+        <h1>Bhavik, will you be my Valentine? 💖</h1>
         <div class="container">
             <button id="yesBtn" onclick="celebrate()">YES</button>
             <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">NO</button>
@@ -99,51 +98,46 @@
     </div>
 
     <div id="celebration" class="celebration">
-        <h1>Yay! See you on the 14th! 🥰✨</h1>
-        <p style="color: white; font-size: 1.5rem;">I love you!</p>
+        <h1>Yay! See you on the 14th, Bhavik! 🥰✨</h1>
+        <p style="color: #6a1b9a; font-size: 1.8rem; font-weight: bold;">I love you!</p>
     </div>
 
     <script>
-        // 1. Falling Hearts Effect
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = '❤️';
+            heart.innerHTML = Math.random() > 0.5 ? '💜' : '💖'; // Purple and Pink hearts
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            heart.style.opacity = Math.random();
             document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            setTimeout(() => { heart.remove(); }, 5000);
         }
 
-        // Create hearts every 300ms
         setInterval(createHeart, 300);
 
-        // 2. The Elusive "No" Button
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            // This math ensures the button stays inside the visible screen
+            const padding = 50; 
+            const maxX = window.innerWidth - btn.offsetWidth - padding;
+            const maxY = window.innerHeight - btn.offsetHeight - padding;
+            
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
         }
 
-        // 3. The Big "Yes" Moment
         function celebrate() {
-            // Play Music
             const music = document.getElementById('valentineMusic');
             music.play();
-
-            // Change UI
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('celebration').style.display = 'block';
-            document.body.style.backgroundColor = "#ff1493"; // Deep Pink
-            
-            // Speed up the hearts for a party effect!
+            document.body.style.background = "#6a1b9a"; 
+            document.querySelector('#celebration h1').style.color = "white";
+            document.querySelector('#celebration p').style.color = "#fbc2eb";
             setInterval(createHeart, 100);
         }
     </script>
